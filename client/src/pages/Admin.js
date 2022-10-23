@@ -3,10 +3,28 @@ import { Button, Container } from "react-bootstrap";
 import {CreateType} from "../components/modals/CreateType"
 import {CreateProduct} from "../components/modals/CreateProduct"
 import { useState } from "react";
+import { useContext } from "react";
+import { Context } from "..";
+import { Navigate } from "react-router-dom";
+import { SHOP_ROUTE } from "../utils/consts";
+
+
 
 const Admin = () => {
     const [typeVisible, setTypeVisible] = useState(false)
     const [ProductVisible, setProductVisible] = useState(false)
+    const {user} = useContext(Context)
+
+    if (!user.isAuth)
+    {
+        return (
+            <Navigate to={SHOP_ROUTE}></Navigate>
+        )
+    }
+
+
+
+
     
 
     return (
