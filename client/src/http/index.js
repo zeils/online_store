@@ -1,14 +1,18 @@
 import axios from "axios"
 
 
+const {REACT_APP_API_URL} = process.env
+
+
+
 const $host = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: REACT_APP_API_URL
 
 
 })
 
 const $authHost = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: REACT_APP_API_URL
 
 
 })
