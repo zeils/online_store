@@ -2,17 +2,14 @@ import React from "react"
 import { Card, Col} from "react-bootstrap"
 import Image from "react-bootstrap/Image"
 import { PRODUCT_ROUTE } from "../utils/consts"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink} from "react-router-dom"
 
 const ProductItem = ({product}) => {
     //PRODUCT_ROUTE + '/' + product.id
 
-    const navigate = useNavigate()
 
-    const ProductClick = () => (
-        console.log('Клик'),
-        navigate( PRODUCT_ROUTE + '/' + product.id)
-    )
+
+
 
     
     return (

@@ -7,6 +7,12 @@ import { ADMIN_ROUTE, LOGIN_ROUT, SHOP_ROUTE } from "../utils/consts";
 
 export const NavBar = observer (() => {
     const {user} = useContext(Context)
+
+    const logOut = () => {
+        user.setUser({})
+        user.setIsAuth(false)
+    }
+
     return (
         <Navbar bg="dark" variant="dark">
         <Container>
@@ -19,7 +25,7 @@ export const NavBar = observer (() => {
                     </NavLink>
                     
                     <NavLink to={SHOP_ROUTE}>
-                        <Button variant="outline-light" onClick={()=> user.setIsAuth(false)}>Выйти</Button>
+                        <Button variant="outline-light" onClick={logOut}>Выйти</Button>
                     </NavLink>
                     
                     
@@ -28,7 +34,7 @@ export const NavBar = observer (() => {
             :
                 <Nav className="ml-auto">
                     <NavLink to={LOGIN_ROUT}>
-                        <Button variant="outline-light" onClick={()=> user.setIsAuth(true)}>Авторизация</Button>
+                        <Button variant="outline-light">Авторизация</Button>
                     </NavLink>
                     
 

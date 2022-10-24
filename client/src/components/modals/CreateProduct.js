@@ -17,9 +17,7 @@ export const CreateProduct = ({show, onHide}) => {
         setInfo([...info, {title:'', description:'', number: Date.now()}])
     }
 
-    const removeInfo = (number) => {
-        setInfo(info.filter(i => i.number !== number))
-    }
+
 
     const cleanForm = () => {
         setInfo([])
