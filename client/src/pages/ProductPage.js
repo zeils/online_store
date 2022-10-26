@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Col, Image, Card, Row, Button } from "react-bootstrap";
+import {useParams} from 'react-router-dom'
+import { fetchOneProduct } from "../http/productAPI";
 
 const ProductPage = () => {
-    const product = {id: 1, name: "Первый тестовый продукт", price: 1000, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'}
-    const description = {id:1, title: 'товар такой то', description: 'описание'}
+    const [product, setProduct] = useState({info:[]})
+    const {id} = useParams()
+
+    useEffect(()=>{
+        fetchOneProduct(id).then(data => setProduct(data))
+
+
+    }, [])
+    
+    const {REACT_APP_API_URL} = process.env
     return (
         <Container className="mt-3">
             <Row className="d-flex flex-column alignt-items-center">
@@ -11,7 +21,7 @@ const ProductPage = () => {
             </Row> 
             <Row>
                 <Col md={4}>
-                    <Image width={300} height={300} src={product.img}></Image>
+                    <Image width={300} height={300} src={REACT_APP_API_URL + product.img}></Image>
 
                 </Col>
 
@@ -25,8 +35,13 @@ const ProductPage = () => {
                 
                 </Col>
             </Row>
-            <Row className="d-flex flex-column m-3" style={{background: 'lightgray'}}>
-                {description.title}: {description.description}
+            <Row className="d-flex flex-column m-3">
+                <h1>Характеристики</h1>
+                {product.info.map((info, index) =>
+                    <Row key={info.id} style={{background: 'lightgray', padding: 10}}>
+                        {info.title}: {info.description}
+                    </Row>
+                )}
             </Row>
             
         </Container>

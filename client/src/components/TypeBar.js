@@ -5,6 +5,7 @@ import { ListGroup } from "react-bootstrap";
 
 export const TypeBar = observer(()=>{
     const {product} = useContext(Context)
+    
 
     return (
         <ListGroup>
@@ -12,7 +13,7 @@ export const TypeBar = observer(()=>{
                 <ListGroup.Item
                     style={{cursor: 'pointer'}}
                     active={type.id === product.selectedType.id} 
-                    onClick={() => product.setSelectedType(type)}
+                    onClick={() => product.setSelectedType(type.id)}
                     key={type.id}>
                     
                     {type.name}

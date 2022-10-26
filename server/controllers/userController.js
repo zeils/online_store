@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const {User, Basket} = require('../models/models')
 
 
+
 const generateJwt = (id, email, role) => {
     return jwt.sign(
 
@@ -14,7 +15,9 @@ const generateJwt = (id, email, role) => {
 
 }
 
+
 class UserController {
+
     async registration(req,res){
         const {email, password, role} = req.body
         if (!email || !password){
@@ -41,13 +44,22 @@ class UserController {
         if (!comparePassword) {
             return next(ApiError.internal('Неверный логин или пароль'))
         }
+        
         const token = generateJwt(user.id, user.email, user.role)
-        return res.json({token})
+        const role = (await User.findByPk(user.id)).role
+        return res.json({token,role})
         
     }
     async check(req,res,next){
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
-        return res.json({token})
+        //console.log ('USER !!!!!!!')
+       
+        const role = (await User.findByPk(req.user.id)).role
+        //const user = 'ADMIN'
+        console.log('РООООООООЛЬ ' + role)
+
+
+        return res.json({token, role})
     }
 
 }

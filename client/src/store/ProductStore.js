@@ -1,28 +1,14 @@
 import { makeAutoObservable } from "mobx"
 
-export default class UserStore {
+export default class ProductStore {
     constructor() {
-        this._types = [
-            {id: 1, name: 'Первый тестовый тип'},
-            {id: 2, name: 'Второй тестовый тип'}
-        ]
-        this._brands = [
-            {id: 1, name: 'Первый тестовый брэнд'},
-            {id: 2, name: 'Второй тестовый брэнд'}
-        ]
-        this._products = [
-            {id: 1, name: "Первый тестовый продукт", price: 1000, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 2, name: "Второй тестовый продукт", price: 1500, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 3, name: "Третий тестовый продукт", price: 2000, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 4, name: "Первый тестовый продукт", price: 1000, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 5, name: "Второй тестовый продукт", price: 1500, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 6, name: "Третий тестовый продукт", price: 2000, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 7, name: "Первый тестовый продукт", price: 1000, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 8, name: "Второй тестовый продукт", price: 1500, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'},
-            {id: 9, name: "Третий тестовый продукт", price: 2000, rating: 5, img: 'https://purposechurch.com/wp-content/uploads/2017/10/fpo400x300.png'}
-
-        ]
+        this._types = []
+        this._brands = []
+        this._products = []
         this._selectedType = {}
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 3
 
 
         makeAutoObservable(this)
@@ -30,6 +16,16 @@ export default class UserStore {
 
     setSelectedType(type) {
         this._selectedType = type
+
+    }
+
+    setPage(page) {
+        this._page = page
+
+    }
+
+    setTotalCount(count) {
+        this._totalCount = count
 
     }
 
@@ -59,5 +55,20 @@ export default class UserStore {
 
     get selectedType() {
         return this._selectedType
+    }
+
+    get page() {
+        return this._page 
+
+    }
+
+    get totalCount() {
+        return this._totalCount 
+    }
+
+    get limit() {
+
+        return this._limit
+
     }
 }

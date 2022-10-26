@@ -6,12 +6,55 @@ import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { Context } from "../..";
 import {Col, Row} from "react-bootstrap"
 import { useState } from "react";
+import { useEffect } from "react";
+import { createProduct, fetchTypes } from "../../http/productAPI";
+import { observer } from "mobx-react-lite";
 
 
 
-export const CreateProduct = ({show, onHide}) => {
+export const CreateProduct = observer(({show, onHide}) => {
     const {product} = useContext(Context)
     const [info, setInfo] = useState([])
+    const [name, setName] = useState()
+    const [price, setPrice] = useState()
+    const [file, setFile] = useState(null)
+
+    //useEffect (()=> {
+      //  fetchTypes().then(data => product.setTypes(data))
+        
+    //})
+    
+    const selectFile = e => {
+        setFile(e.target.files[0])
+
+    }
+
+    const changeInfo = (key, value, number) => {
+        setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
+    }
+
+    const addProduct = () => {
+
+        const formData = new FormData()
+        formData.append('name', name)
+        formData.append('price', `${price}`)  
+        formData.append('brandId', '1')
+        formData.append('typeId', `${product.selectedType.id}`)
+        formData.append('info', JSON.stringify(info))
+        formData.append('img', file)
+
+
+       
+        createProduct(formData).then(data => onHide())
+        fetchTypes().then(data => product.setTypes(data))
+
+
+
+
+    }
+
+
+
 
     const addInfo = () =>{
         setInfo([...info, {title:'', description:'', number: Date.now()}])
@@ -33,20 +76,30 @@ export const CreateProduct = ({show, onHide}) => {
                 <Form>
                     <Dropdown className="mt-3">
                         <DropdownToggle>
-                            Выберите тип
+                            {product.selectedType.name || "Выберите тип"}
+                            
                         </DropdownToggle>
                         <DropdownMenu>
                             {product.types.map(type =>
-                                <DropdownItem key={type.id}>{type.name}</DropdownItem>
+                                <DropdownItem 
+                                    onClick={()=> product.setSelectedType(type)}
+                                    key={type.id}
+                                >
+                                    {type.name}
+                                </DropdownItem>
                                 
                             )}
                         </DropdownMenu>
                     </Dropdown>
                     <Form.Control
+                        value={name}
+                        onChange = {e => setName(e.target.value)}
                         className="mt-3"
                         placeholder="Введите название товара"
                     />
                     <Form.Control
+                        value={price}
+                        onChange = {e => setPrice(Number(e.target.value))}
                         className="mt-3"
                         placeholder="Введите цену товара"
                         type="number"
@@ -55,6 +108,7 @@ export const CreateProduct = ({show, onHide}) => {
                         className="mt-3"
                         
                         type="file"
+                        onChange = {selectFile}
                     />
                     <hr></hr>
                     <Button variant="outline-dark" onClick={addInfo}>
@@ -64,11 +118,15 @@ export const CreateProduct = ({show, onHide}) => {
                         <Row className="mt-3">
                             <Col md={4}>
                                 <FormControl
+                                    value ={i.title}
+                                    onChange={(e) => changeInfo('title', e.target.value, i.number)}
                                     placeholder="Введите название свойства"
                                 />
                             </Col>
                             <Col md={4}>
                                 <FormControl
+                                    value={i.description}
+                                    onChange={(e) => changeInfo('description', e.target.value, i.number)}
                                     placeholder="Описание"
                                 />
                             </Col>
@@ -86,12 +144,12 @@ export const CreateProduct = ({show, onHide}) => {
               <Button variant="secondary" onClick={onHide}>
                 Закрыть
               </Button>
-              <Button variant="primary" onClick={onHide}>
+              <Button variant="primary" onClick={addProduct}>
                 Добавить
               </Button>
             </Modal.Footer>
           </Modal>
 
       );
-  }
+  })
 

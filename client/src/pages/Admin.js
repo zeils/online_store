@@ -21,6 +21,16 @@ const Admin = () => {
             <Navigate to={SHOP_ROUTE}></Navigate>
         )
     }
+    console.log(user.role)
+    if (user.role === 'USER')
+    {
+
+        return (
+            <Navigate to={SHOP_ROUTE}></Navigate>
+
+        )
+
+    }
 
 
 
