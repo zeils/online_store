@@ -26,8 +26,7 @@ const Pages = observer (()=>{
         <Pagination className="mt-5">
             {pages.map(page =>
                 <Pagination.Item key={page} active={product.page === page} onClick={()=> product.setPage(page)}>
-                    {page}
-                    
+                    {page}                   
                 </Pagination.Item>
             
             )}
