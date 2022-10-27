@@ -3,9 +3,9 @@ import { $authHost, $host } from ".";
 
 
 export const createType = async (type) => {
-    console.log('запрос на добавление ' + type)
+    //console.log('запрос на добавление ' + type)
     const {data} = await $authHost.post('api/type', type)
-    console.log('запрос на добавление ' + type)
+    //console.log('запрос на добавление ' + type)
     return data
 
 }
@@ -13,6 +13,19 @@ export const createType = async (type) => {
 export const fetchTypes = async () => {
     const {data} = await $host.get('api/type')
     return data
+
+}
+
+export const deleteType = async (typeId) => {
+
+    await $authHost.delete('api/type', {data: {id: typeId}})
+
+
+}
+
+export const deleteProduct = async (productId) => {
+    
+    await $authHost.delete('api/product', {data: {id: productId}})
 
 }
 

@@ -28,7 +28,7 @@ export const check = async (user) => {
 
     const {data} = await $authHost.get('api/user/auth')
     const role = data['role']
-    console.log('роль установлена ' +role)
+    //console.log('роль установлена ' +role)
     // SetRole(role)
     user.setRole(role)
     

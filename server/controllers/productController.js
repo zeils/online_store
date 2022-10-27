@@ -93,6 +93,19 @@ class ProductController {
         
     }
 
+    async delete(req,res){
+
+        const productId = parseInt(Object.values(req.body)[0]) 
+        await Product.destroy({
+            where: {
+                id: productId
+            }
+        })
+
+        return res.json(productId)
+
+    }
+
 
 }
 

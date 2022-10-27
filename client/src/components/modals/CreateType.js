@@ -10,7 +10,7 @@ export const CreateType = (({show, onHide}) => {
   const {product} = useContext(Context)
   const [value, setValue] = useState()
   const addType = () => {
-      console.log('новый тип ' + value)
+      //console.log('новый тип ' + value)
       createType({name: value}).then(data => {
       setValue()
       onHide()
