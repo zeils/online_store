@@ -26,17 +26,31 @@ export const NavBar = observer (() => {
     return (
         <Navbar bg="dark" variant="dark">
         <Container>
-            <NavLink style={{color: 'white'}} to= {SHOP_ROUTE}  className="ms-*"  onClick={() => product.setSelectedType({})}> BaGaЖ </NavLink>
+            
+            <NavLink  style={{color: 'white', className:"d-flex flex-column mt-3", textDecoration: 'none' }} to= {SHOP_ROUTE}  className="ms-*"  onClick={() => product.setSelectedType({})} > 
+                <Row ><h1><u>BaGaЖ</u> </h1></Row>
+                <Row ><h10>Магазин чемоданов, сумок, кожгалантереи</h10></Row>
+            
+            </NavLink>
+
+            
             {user.isAuth ? 
 
                 <Nav className="ml-auto" >
-                    <NavLink to={CONTATCS_ROUTE}>
-                        <Button variant="outline-light">Контакты</Button>
-                    </NavLink>
-
                     <NavLink to={COMPANY_ROUTE}>
                         <Button variant="outline-light">О компании</Button>
                     </NavLink>
+                    <NavLink to={SHOP_ROUTE}>
+                        <Button variant="outline-light">Каталог</Button>
+                    </NavLink>
+                    <NavLink to={CONTATCS_ROUTE}>
+                        <Button variant="outline-light">Контакты</Button>
+                    </NavLink>
+                    <NavLink to={SHOP_ROUTE}>
+                        <Button variant="outline-light">Корзина</Button>
+                    </NavLink>
+
+                    
 
                     <NavLink to={ADMIN_ROUTE}>
 
@@ -54,14 +68,18 @@ export const NavBar = observer (() => {
             :
 
                 <Nav className="ml-auto">
-                    <NavLink to={CONTATCS_ROUTE}>
-                        <Button variant="outline-light">Контакты</Button>
-                    </NavLink>
-
                     <NavLink to={COMPANY_ROUTE}>
                         <Button variant="outline-light">О компании</Button>
                     </NavLink>
-
+                    <NavLink to={SHOP_ROUTE}>
+                        <Button variant="outline-light">Каталог</Button>
+                    </NavLink>
+                    <NavLink to={CONTATCS_ROUTE}>
+                        <Button variant="outline-light">Контакты</Button>
+                    </NavLink>
+                    <NavLink to={SHOP_ROUTE}>
+                        <Button variant="outline-light">Корзина</Button>
+                    </NavLink>
                     <NavLink to={LOGIN_ROUT}>
                         <Button variant="outline-light">Авторизация</Button>
                     </NavLink>
