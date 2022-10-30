@@ -3,8 +3,7 @@ import React, { useContext } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink} from "react-router-dom";
 import { Context } from "../index"
-import { ADMIN_ROUTE, COMPANY_ROUTE, CONTATCS_ROUTE, LOGIN_ROUT, SHOP_ROUTE } from "../utils/consts";
-import { useState } from "react";
+import { ADMIN_ROUTE, BASKET_ROUT, COMPANY_ROUTE, CONTATCS_ROUTE, LOGIN_ROUT, SHOP_ROUTE } from "../utils/consts";
 import { Row } from "react-bootstrap";
 
 
@@ -46,7 +45,7 @@ export const NavBar = observer (() => {
                     <NavLink to={CONTATCS_ROUTE}>
                         <Button variant="outline-light">Контакты</Button>
                     </NavLink>
-                    <NavLink to={SHOP_ROUTE}>
+                    <NavLink to={BASKET_ROUT}>
                         <Button variant="outline-light">Корзина</Button>
                     </NavLink>
 
@@ -77,7 +76,7 @@ export const NavBar = observer (() => {
                     <NavLink to={CONTATCS_ROUTE}>
                         <Button variant="outline-light">Контакты</Button>
                     </NavLink>
-                    <NavLink to={SHOP_ROUTE}>
+                    <NavLink to={BASKET_ROUT}>
                         <Button variant="outline-light">Корзина</Button>
                     </NavLink>
                     <NavLink to={LOGIN_ROUT}>

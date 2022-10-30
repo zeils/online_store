@@ -12,10 +12,7 @@ export const authRoutes = [
         path: ADMIN_ROUTE,
         Component: Admin
     },
-    {
-        path: BASKET_ROUT,
-        Component: Basket
-    }
+    
 
 ]
 
@@ -43,6 +40,10 @@ export const publicRoutes = [
     {
         path: CONTATCS_ROUTE,
         Component: Contacts
+    },
+    {
+        path: BASKET_ROUT,
+        Component: Basket
     }
 
 ]

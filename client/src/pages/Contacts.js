@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import { STORE_LOCATION } from "../utils/consts";
-import { NavLink } from "react-router-dom";
+
 
 const Contacts = () => {
     return (
@@ -45,9 +45,11 @@ const Contacts = () => {
                 Посмотреть на карте
             </a>
         </Button>
+
+        </Container>
   
         
-        </Container>
+        
     );
 };
 

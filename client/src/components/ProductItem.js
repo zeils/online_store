@@ -8,8 +8,9 @@ const ProductItem = ({product}) => {
     //PRODUCT_ROUTE + '/' + product.id
 
     const {REACT_APP_API_URL} = process.env
+    
 
-
+    
 
 
 
@@ -23,13 +24,19 @@ const ProductItem = ({product}) => {
                     color: "black",
                     textDecoration: 'none' }} >
 
-                <Card style={{width:150, cursor: 'pointer'}} border={"light"} >
-                    <Image width={150} height={150} src={REACT_APP_API_URL + product.img}/>
-                    <div className="mt-1 d-flex justify-content-between align-items-center" variant="outline-light">
-                        {product.name}
-                    </div>
-
-
+                <Card style={{width:'70%', cursor: 'pointer'}} border={"gray"} >
+                    <Card.Img className="mt-3" variant="top" src={REACT_APP_API_URL + product.img} style={{ width: '100%' }}/>
+                    <Card.Body>
+                    <Card.Title>
+                        <div className="mt-1 d-flex justify-content-between align-items-center" variant="outline-light">
+                            {product.name}
+                        </div>
+                    </Card.Title>
+                    <Card.Text>
+                        {product.price} руб.
+                    </Card.Text>
+      
+                    </Card.Body>
                 </Card>
             </NavLink>
             

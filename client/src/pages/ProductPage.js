@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Container, Col, Image, Card, Row, Button } from "react-bootstrap";
 import {useParams} from 'react-router-dom'
 import { fetchOneProduct } from "../http/productAPI";
+import { useContext } from "react";
+import { Context } from "..";
 
 const ProductPage = () => {
     const [product, setProduct] = useState({info:[]})
     const {id} = useParams()
+    const {basket} = useContext(Context)
 
     useEffect(()=>{
         fetchOneProduct(id).then(data => setProduct(data))
@@ -30,7 +33,7 @@ const ProductPage = () => {
                         className="d-flex flex-column align-items-center justify-content-around"
                         style = {{width: 300, height:300, fontSize: 32, border: '5px solid lightgray'}}>
                         <h3>{product.price} руб.</h3>
-                        <Button variant={"outline-dark"}>Добавить в корзину</Button>
+                        <Button variant={"outline-dark"} onClick={() => basket.addProduct(product)}>Добавить в корзину</Button>
                     </Card>
                 
                 </Col>

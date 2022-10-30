@@ -43,10 +43,7 @@ export const fetchProducts = async (typeId, brandId, page, limit = 5) => {
 
         }
     })
-
-
     return data
-
 }
 
 export const fetchOneProduct = async (id) => {
@@ -55,4 +52,11 @@ export const fetchOneProduct = async (id) => {
 
 }
 
+export const sendMail = async (mail) => {
+
+    const {data} = await $authHost.post('api/order', mail)
+
+    return data
+
+}
 
