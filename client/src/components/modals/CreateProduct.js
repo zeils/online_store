@@ -18,16 +18,27 @@ export const CreateProduct = observer(({show, onHide}) => {
     const [name, setName] = useState()
     const [price, setPrice] = useState()
     const [file, setFile] = useState(null)
+    const [file2, setFile2] = useState(null)
+    const [pictures, setPictures] = useState([])
+
+    const addPicture = e => {
+        setPictures([...pictures, e.target.files[0]])
+
+    }
+
+
 
     //useEffect (()=> {
       //  fetchTypes().then(data => product.setTypes(data))
         
     //})
     
-    const selectFile = e => {
-        setFile(e.target.files[0])
+    //const selectFile = e => {
+    //    setFile(e.target.files[0])
 
-    }
+    //}
+
+
 
     const changeInfo = (key, value, number) => {
         setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
@@ -35,13 +46,17 @@ export const CreateProduct = observer(({show, onHide}) => {
 
     const addProduct = () => {
 
+        //const pics = [file,file2]
+
         const formData = new FormData()
         formData.append('name', name)
         formData.append('price', `${price}`)  
         formData.append('brandId', '1')
         formData.append('typeId', `${product.selectedType.id}`)
         formData.append('info', JSON.stringify(info))
-        formData.append('img', file)
+        for(let img of pictures) {
+            formData.append('img', img);
+          }
 
 
        
@@ -62,8 +77,15 @@ export const CreateProduct = observer(({show, onHide}) => {
 
 
 
+
+
     const cleanForm = () => {
         setInfo([])
+        setName()
+        setPrice()
+        setPictures([])
+        onHide()
+
     }
 
     return (
@@ -104,13 +126,32 @@ export const CreateProduct = observer(({show, onHide}) => {
                         placeholder="Введите цену товара"
                         type="number"
                     />
+
                     <Form.Control
                         className="mt-3"
                         
                         type="file"
-                        onChange = {selectFile}
+                        onChange = {addPicture}
                     />
+                    
+                    {pictures.map(i =>
+
+                        <Form.Control
+                            className="mt-3"
+                            type="file"
+                            onChange = {addPicture}
+                        />
+                    
+                    
+                    )}
+
+                    
+
+
                     <hr></hr>
+                    <Button variant="outline-dark">
+                        Добавить картинку
+                    </Button>
                     <Button variant="outline-dark" onClick={addInfo}>
                         Добавить новое свойство
                     </Button>
@@ -139,9 +180,9 @@ export const CreateProduct = observer(({show, onHide}) => {
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={cleanForm}>
-                Очистить
+                Очистить (обязательно, если выбрали не ту картинку)
               </Button>
-              <Button variant="secondary" onClick={onHide}>
+              <Button variant="secondary" onClick={cleanForm}>
                 Закрыть
               </Button>
               <Button variant="primary" onClick={addProduct}>

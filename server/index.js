@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 5000
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
 
+
+
 const app = express()
 
 app.use(cors())
@@ -26,6 +28,7 @@ const start = async () => {
         console.log('gg')
         await sequelize.authenticate()
         await sequelize.sync()
+
         app.listen(PORT, ()=> console.log('Server started on port ' + PORT))
 
     } catch (e) {

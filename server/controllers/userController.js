@@ -51,15 +51,24 @@ class UserController {
         
     }
     async check(req,res,next){
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        try{
+            const token = generateJwt(req.user.id, req.user.email, req.user.role)
         //console.log ('USER !!!!!!!')
        
-        const role = (await User.findByPk(req.user.id)).role
+            const role = (await User.findByPk(req.user.id)).role
         //const user = 'ADMIN'
-        console.log('РООООООООЛЬ ' + role)
+        //console.log('РООООООООЛЬ ' + role)
+            return res.json({token, role})
+    
+        } catch (e) {
+            console.log(e)
+        }
+        
+        
+        
 
 
-        return res.json({token, role})
+        
     }
 
 }

@@ -7,11 +7,18 @@ import { Context } from "..";
 
 const ProductPage = () => {
     const [product, setProduct] = useState({info:[]})
+    const [picture, setPicture] = useState([])
     const {id} = useParams()
     const {basket} = useContext(Context)
 
     useEffect(()=>{
-        fetchOneProduct(id).then(data => setProduct(data))
+        fetchOneProduct(id).then(
+            data => {
+
+                setProduct(data.product); 
+                setPicture(data.picsNames)
+            }          
+            )
 
 
     }, [])
@@ -24,7 +31,7 @@ const ProductPage = () => {
             </Row> 
             <Row>
                 <Col md={4}>
-                    <Image width={300} height={300} src={REACT_APP_API_URL + product.img}></Image>
+                    <Image width={300} height={300} src={REACT_APP_API_URL + picture[0]}></Image>
 
                 </Col>
 

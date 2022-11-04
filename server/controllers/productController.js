@@ -1,22 +1,51 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Product, ProductInfo} = require('../models/models')
+const {Product, ProductInfo,Picture} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class ProductController {
     async create(req,res,next){
+        console.log('попытка создания')
         try {
             let {name, price, brandId, typeId, info} = req.body
-            const {img} = req.files
-            let fileName= uuid.v4() + ".jpg"
-            let intPrice = parseInt(price)
-            console.log('int price ' + intPrice+ ' ' + typeof(intPrice))
-            console.log(' price ' + price + ' ' + typeof(price))
-            console.log(' brand ' + price + ' ' + typeof(brand))
-            console.log(' type ' + price + ' ' + typeof(type))
-            img.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-            const product = await Product.create({name, price, brandId, typeId, img: fileName})
+            console.log('FFFFFFFFFFFFFF')
+            //console.log(req)
+
+            //console.log(req.files)
+            console.log('создание1')
+            const img = req.files 
+            console.log('создание2')
+
+            
+            
+            //let intPrice = parseInt(price)
+            //console.log('int price ' + intPrice+ ' ' + typeof(intPrice))
+            //console.log(' price ' + price + ' ' + typeof(price))
+            //console.log(' brand ' + brandId + ' ' + typeof(brandId))
+            //console.log(' type ' + typeId + ' ' + typeof(typeId))
+
+
+            console.log('добавление в базу1')
+            console.log(img)
+            console.log('добавление в базу2')
+            console.log(img.img[0])
+
+
+
+            
+
+            const product = await Product.create({name, price, brandId, typeId})
+            console.log('добавлено id ' + product.id)
+            for  (var i in img.img) {
+                const pic = img.img[i]
+                let fileName= uuid.v4() + ".jpg"
+                pic.mv(path.resolve(__dirname, '..', 'static', fileName))
+
+                await Picture.create({img: fileName, productId: product.id})
+
+            }
+            console.log('Картинки добавлены')
 
       
             
@@ -38,6 +67,7 @@ class ProductController {
             
             return res.json(product)
         } catch(e){
+            console.log('ошибка ' + e)
 
             next(ApiError.badRequest(e.message))
         }
@@ -62,6 +92,7 @@ class ProductController {
 
             products = await Product.findAll({where:{typeId, brandId}})
         }
+        
 
         return res.json(products)
 
@@ -88,8 +119,18 @@ class ProductController {
                 include: [{model: ProductInfo, as: 'info'}]
             },
         )
-        console.log(product)
-        return res.json(product)
+        const pics = await Picture.findAll({where:{productId: product.id}})
+        const picsNames =[]
+        //console.log('КАРТИНКИ1')
+        //console.log(pics)
+        for (let i=0; i<pics.length; i++) {
+            picsNames.push(pics[i].dataValues.img)
+        }
+        //console.log('КАРТИНКИ2')
+        //console.log(picsNames)
+        //console.log(pics)
+        //console.log('КАРТИНКИ3')
+        return res.json({product,picsNames})
         
     }
 
