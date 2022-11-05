@@ -43,6 +43,8 @@ export const fetchProducts = async (typeId, brandId, page, limit = 5) => {
 
         }
     })
+    //console.log('data ' + data[0].name)
+    //console.log('img ' + data[0].img)
     return data
 }
 

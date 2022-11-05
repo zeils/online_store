@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Col, Image, Card, Row, Button } from "react-bootstrap";
+import { Container, Col, Image, Card, Row, Button, Carousel } from "react-bootstrap";
 import {useParams} from 'react-router-dom'
 import { fetchOneProduct } from "../http/productAPI";
 import { useContext } from "react";
@@ -7,24 +7,51 @@ import { Context } from "..";
 
 const ProductPage = () => {
     const [product, setProduct] = useState({info:[]})
+    //const [product, setProduct] = useState()
+    const [pictures, setPictures] = useState([])
     const {id} = useParams()
     const {basket} = useContext(Context)
 
     useEffect(()=>{
-        fetchOneProduct(id).then(data => setProduct(data))
+        fetchOneProduct(id).then(
+            data => {
+
+                setProduct(data.product); 
+                setPictures(data.picsNames)
+            }          
+            )
 
 
     }, [])
     
     const {REACT_APP_API_URL} = process.env
     return (
+
+
         <Container className="mt-3">
+
+
+
             <Row className="d-flex flex-column alignt-items-center">
                 <h2>{product.name}</h2>
+            
             </Row> 
             <Row>
                 <Col md={4}>
-                    <Image width={300} height={300} src={REACT_APP_API_URL + product.img}></Image>
+                    <Carousel interval={null}>
+                        {pictures.map(i =>
+                        <Carousel.Item>
+                            <Image fluid={true}  width={300} height={300} src={REACT_APP_API_URL + i}></Image>
+
+
+                        </Carousel.Item>
+                        
+
+                        )}
+
+                        
+                    </Carousel>
+                    
 
                 </Col>
 
