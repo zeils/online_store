@@ -8,6 +8,8 @@ const ProductItem = ({product}) => {
     //PRODUCT_ROUTE + '/' + product.id
 
     const {REACT_APP_API_URL} = process.env
+    //console.log('картинка? ' + product.img)
+
     
 
     

@@ -2,6 +2,7 @@ const uuid = require('uuid')
 const path = require('path')
 const {Product, ProductInfo,Picture} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const db = require('../db')
 
 class ProductController {
     async create(req,res,next){
@@ -75,61 +76,108 @@ class ProductController {
     }
     async getAll(req,res){
         const {brandId, typeId, limit, page} = req.query
-        let products;
+        let dbProducts;
+        let products =  [];
         if (!brandId && !typeId) {
 
-            products = await Product.findAll()
+            dbProducts = await Product.findAll()
         }
         if (brandId && !typeId) {
 
-            products = await Product.findAll({where:{brandId}})
+            dbProducts = await Product.findAll({where:{brandId}})
         }
         if (!brandId && typeId) {
 
-            products = await Product.findAll({where:{typeId}})
+            dbProducts = await Product.findAll({where:{typeId}})
         }
         if (brandId && typeId) {
 
-            products = await Product.findAll({where:{typeId, brandId}})
+            dbProducts = await Product.findAll({where:{typeId, brandId}})
         }
+        //console.log('ЗАПРОС')
         
 
-        return res.json(products)
+        //products.map(product => 
 
+        for await (let product of dbProducts){
+            
+                const pics = await Picture.findAll({where:{productId: product.id}})
+                //console.log('-------------------------------------------------------------------------')
+                //console.log('ТОВАР! '+  JSON.stringify(product)  )
+                //const nimg = {img: pics[0].dataValues.img}
+                //const timg = pics[0].dataValues.img
+                //var test = product
+                
+                //product.img = pics[0].dataValues.img
 
-
-
+                let newProduct = {
+                    id: product.id,
+                    name: product.id,
+                    price: product.id,
+                    rating: product.id,
+                    createdAt: product.id,
+                    updatedAt: product.id,
+                    typeId: product.id,
+                    brandId: product.id,
+                    img: pics[0].dataValues.img
+                }
+                products.push(newProduct)
+                
+            
+                //console.log('КАРТИНКА ' + JSON.stringify(img))
+                //console.log('С картинкой! '+ JSON.stringify(test))
+                //console.log('img ' + test.img)
+                //console.log('Ну давай ' + JSON.stringify(product))
+              }
+              //console.log('-------------------------------------------------------------------------')
+            
             
 
-
-
-
-
-
         
+        //console.log('цикл завершен')
+
+        //console.log('еще раз ' + products[0].img)
+        //console.log('товар 1' + JSON.stringify(products[0]))
+
+        return res.json(products)
+ 
     }
 
 
     async getOne(req,res){
 
         const {id} = req.params
-        const product = await Product.findOne(
+        const dbproduct = await Product.findOne(
             {
                 where: {id},
                 include: [{model: ProductInfo, as: 'info'}]
             },
         )
-        const pics = await Picture.findAll({where:{productId: product.id}})
+        const pics = await Picture.findAll({where:{productId: dbproduct.id}})
         const picsNames =[]
-        //console.log('КАРТИНКИ1')
-        //console.log(pics)
+
         for (let i=0; i<pics.length; i++) {
             picsNames.push(pics[i].dataValues.img)
         }
-        //console.log('КАРТИНКИ2')
-        //console.log(picsNames)
-        //console.log(pics)
-        //console.log('КАРТИНКИ3')
+        console.log ('еее ' + JSON.stringify(dbproduct) )
+        console.log ('info' + JSON.stringify(dbproduct.info))
+
+        const product = {
+            id: dbproduct.id,
+            name: dbproduct.id,
+            price: dbproduct.id,
+            rating: dbproduct.id,
+            createdAt: dbproduct.id,
+            updatedAt: dbproduct.id,
+            typeId: dbproduct.id,
+            brandId: dbproduct.id,
+            img: pics[0].dataValues.img,
+            info: (dbproduct.info)
+            
+        }
+        console.log ('товар ' + JSON.stringify(product) )
+        
+
         return res.json({product,picsNames})
         
     }
@@ -140,6 +188,12 @@ class ProductController {
         await Product.destroy({
             where: {
                 id: productId
+            }
+        })
+
+        await Picture.destroy({
+            where: {
+                productId: productId
             }
         })
 
