@@ -15,6 +15,7 @@ class ProductController {
 
             //console.log(req.files)
             console.log('создание1')
+
             const img = req.files 
             console.log('создание2')
 
@@ -30,20 +31,35 @@ class ProductController {
             console.log('добавление в базу1')
             console.log(img)
             console.log('добавление в базу2')
-            console.log(img.img[0])
+            //console.log(JSON.stringify(img.img))
 
 
 
             
-
+            console.log('Добавление товара')
             const product = await Product.create({name, price, brandId, typeId})
-            console.log('добавлено id ' + product.id)
+            console.log('Добавлено id ' + product.id)
             for  (var i in img.img) {
-                const pic = img.img[i]
-                let fileName= uuid.v4() + ".jpg"
-                pic.mv(path.resolve(__dirname, '..', 'static', fileName))
+                if (i){
+                    console.log('Добавление картинки!')
+                    let pic
+                    console.log(img.img.length)
+                    if(img.img.length) {
+                        pic = img.img[i]
+                    }
+                    else{
+                        pic = img.img
+                    }
+                    //console.log('Добавление картинки!')
+                    //console.log(img.img[i])
+                     
+                    let fileName= uuid.v4() + ".jpg"
+                    pic.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-                await Picture.create({img: fileName, productId: product.id})
+                    await Picture.create({img: fileName, productId: product.id})
+
+                }
+                
 
             }
             console.log('Картинки добавлены')
@@ -75,76 +91,61 @@ class ProductController {
 
     }
     async getAll(req,res){
+        try {
+            
+        
         const {brandId, typeId, limit, page} = req.query
-        let dbProducts;
-        let products =  [];
+        let products;
         if (!brandId && !typeId) {
 
-            dbProducts = await Product.findAll()
+            products = await Product.findAll()
         }
         if (brandId && !typeId) {
 
-            dbProducts = await Product.findAll({where:{brandId}})
+            products = await Product.findAll({where:{brandId}})
         }
         if (!brandId && typeId) {
 
-            dbProducts = await Product.findAll({where:{typeId}})
+            products = await Product.findAll({where:{typeId}})
         }
         if (brandId && typeId) {
 
-            dbProducts = await Product.findAll({where:{typeId, brandId}})
+            products = await Product.findAll({where:{typeId, brandId}})
         }
-        //console.log('ЗАПРОС')
-        
 
-        //products.map(product => 
-
-        for await (let product of dbProducts){
+        for (let product of products){
             
                 const pics = await Picture.findAll({where:{productId: product.id}})
-                //console.log('-------------------------------------------------------------------------')
-                //console.log('ТОВАР! '+  JSON.stringify(product)  )
-                //const nimg = {img: pics[0].dataValues.img}
-                //const timg = pics[0].dataValues.img
-                //var test = product
-                
-                //product.img = pics[0].dataValues.img
 
-                let newProduct = {
-                    id: product.id,
-                    name: product.id,
-                    price: product.id,
-                    rating: product.id,
-                    createdAt: product.id,
-                    updatedAt: product.id,
-                    typeId: product.id,
-                    brandId: product.id,
-                    img: pics[0].dataValues.img
+                let img 
+                if (pics.length > 0) {
+                    img = {img: pics[0].dataValues.img}
+
+                }else{
+                    img = {img: ''}
+
                 }
-                products.push(newProduct)
-                
-            
-                //console.log('КАРТИНКА ' + JSON.stringify(img))
-                //console.log('С картинкой! '+ JSON.stringify(test))
-                //console.log('img ' + test.img)
-                //console.log('Ну давай ' + JSON.stringify(product))
+
+                Object.assign(product.dataValues, img )
+
               }
-              //console.log('-------------------------------------------------------------------------')
-            
-            
 
-        
-        //console.log('цикл завершен')
-
-        //console.log('еще раз ' + products[0].img)
-        //console.log('товар 1' + JSON.stringify(products[0]))
 
         return res.json(products)
+        } catch (e) {
+            console.log('ошибка ' + e)
+
+            next(ApiError.badRequest(e.message))
+            
+        }
  
     }
 
 
     async getOne(req,res){
+        try {
+            
+        
 
         const {id} = req.params
         const dbproduct = await Product.findOne(
@@ -179,10 +180,20 @@ class ProductController {
         
 
         return res.json({product,picsNames})
+        }
+            catch (e) {
+                console.log('ошибка ' + e)
+
+            next(ApiError.badRequest(e.message))
+            
+        }
         
     }
 
     async delete(req,res){
+        try {
+            
+        
 
         const productId = parseInt(Object.values(req.body)[0]) 
         await Product.destroy({
@@ -198,6 +209,12 @@ class ProductController {
         })
 
         return res.json(productId)
+        } catch (e) {
+            console.log('ошибка ' + e)
+
+            next(ApiError.badRequest(e.message))
+            
+        }
 
     }
 
