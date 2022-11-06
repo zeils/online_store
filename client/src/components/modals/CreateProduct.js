@@ -149,9 +149,6 @@ export const CreateProduct = observer(({show, onHide}) => {
 
 
                     <hr></hr>
-                    <Button variant="outline-dark">
-                        Добавить картинку
-                    </Button>
                     <Button variant="outline-dark" onClick={addInfo}>
                         Добавить новое свойство
                     </Button>

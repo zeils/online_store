@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Col, Image, Card, Row, Button, Carousel } from "react-bootstrap";
+import { Container, Col, Image, Card, Row, Button, Carousel} from "react-bootstrap";
 import {useParams} from 'react-router-dom'
 import { fetchOneProduct } from "../http/productAPI";
 import { useContext } from "react";
@@ -37,25 +37,26 @@ const ProductPage = () => {
             
             </Row> 
             <Row>
-                <Col md={4}>
-                    <Carousel interval={null}>
-                        {pictures.map(i =>
-                        <Carousel.Item>
-                            <Image fluid={true}  width={300} height={300} src={REACT_APP_API_URL + i}></Image>
+                <Col  md={5}>
+                    <Card 
+                        className="d-flex flex-column align-items-center justify-content-around"
+                        style = {{width: 470, height:470, fontSize: 32, border: '5px solid lightgray'}}>
+                        <Carousel interval={null} variant='dark' style = {{width: 470, height:470, padding:20}} >
+                            {pictures.map(i =>
+                            <Carousel.Item className="align-items-center">
+                                <Image width={225} height={400} src={REACT_APP_API_URL + i}></Image>
+                            </Carousel.Item>
+                            )}
+                 
+                        </Carousel>
 
-
-                        </Carousel.Item>
-                        
-
-                        )}
-
-                        
-                    </Carousel>
+                    </Card>
+                    
                     
 
                 </Col>
 
-                <Col md={4}>
+                <Col  md={1}>
                     <Card
                         className="d-flex flex-column align-items-center justify-content-around"
                         style = {{width: 300, height:300, fontSize: 32, border: '5px solid lightgray'}}>
@@ -66,12 +67,16 @@ const ProductPage = () => {
                 </Col>
             </Row>
             <Row className="d-flex flex-column m-3">
-                <h1>Характеристики</h1>
-                {product.info.map((info, index) =>
-                    <Row key={info.id} style={{background: 'lightgray', padding: 10}}>
-                        {info.title}: {info.description}
-                    </Row>
-                )}
+                
+                    <h2>О товаре</h2>
+                    {product.info.map((info, index) =>
+                        <Row key={info.id} style={{background: 'lightgray', padding: 10}}>
+                            {info.title}: {info.description}
+                        </Row>
+                    )}
+
+                
+                
             </Row>
             
         </Container>

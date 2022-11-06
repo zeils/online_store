@@ -15,6 +15,7 @@ export default class ProductStore {
     }
 
     setSelectedType(type) {
+        console.log('type ' + type)
         this._selectedType = type
 
     }

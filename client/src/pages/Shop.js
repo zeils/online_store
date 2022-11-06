@@ -12,21 +12,16 @@ import { observer } from "mobx-react-lite";
 
 const Shop = observer(() => {
     const {product} = useContext(Context)
-    useEffect (()=> {
-        fetchTypes().then(data => product.setTypes(data))
-        fetchProducts(null, null, 1, 3).then(data => {
-            
-            product.setProducts(data)
-            product.setTotalCount(data.count)
-        
-        })
-        
-
-
-
-    })
+    //useEffect (()=> {
+    //    fetchTypes().then(data => product.setTypes(data))
+        //fetchProducts(null, null, 1, 3).then(data => {         
+        //    product.setProducts(data)
+        //    product.setTotalCount(data.count)      
+        //})
+    //})
 
     useEffect (()=> {
+        fetchTypes().then(data => product.setTypes(data)) //
 
         fetchProducts(product.selectedType, 1, product.page, 3).then(data => {
 
@@ -35,6 +30,7 @@ const Shop = observer(() => {
             product.setTotalCount(data.count)
         
         })
+
 
 
 
