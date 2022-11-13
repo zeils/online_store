@@ -27,7 +27,7 @@ const ProductItem = ({product}) => {
                     textDecoration: 'none' }} >
 
                 <Card style={{width:'70%', cursor: 'pointer'}} border={"gray"} >
-                    <Card.Img className="mt-3" variant="top" src={REACT_APP_API_URL + product.img} style={{ width: '100%' }}/>
+                    <Card.Img className="mt-3" variant="top" src={REACT_APP_API_URL + product.img} height={200}/>
                     <Card.Body>
                     <Card.Title>
                         <div className="mt-1 d-flex justify-content-between align-items-center" variant="outline-light">

@@ -41,10 +41,14 @@ const ProductPage = () => {
                     <Card 
                         className="d-flex flex-column align-items-center justify-content-center"
                         style = {{width: 470, height:470, fontSize: 32, border: '5px solid lightgray'}}>
-                        <Carousel interval={null} variant='dark' style = {{width: 470, height:470, padding:20}} >
+                        <Carousel interval={null} variant='dark' style = {{width: 470, height:470, padding:20}} className="d-flex flex-column align-items-center justify-content-center">
                             {pictures.map(i =>
-                            <Carousel.Item className="align-items-center">
-                                <Image  height={400} src={REACT_APP_API_URL + i}></Image>
+                            <Carousel.Item >
+                                <div className="d-flex justify-content-center">
+                                    <Image  height={400} src={REACT_APP_API_URL + i} className="d-flex justify-content-center"></Image>
+
+                                </div>
+                                
                             </Carousel.Item>
                             )}
                  
