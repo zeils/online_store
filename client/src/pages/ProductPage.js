@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Col, Image, Card, Row, Button, Carousel} from "react-bootstrap";
 import {useParams} from 'react-router-dom'
 import { fetchOneProduct } from "../http/productAPI";
-import { useContext } from "react";
 import { Context } from "..";
 
 const ProductPage = () => {

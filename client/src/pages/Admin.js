@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Button, Container } from "react-bootstrap";
 import {CreateType} from "../components/modals/CreateType"
 import {CreateProduct} from "../components/modals/CreateProduct"
-import { useState } from "react";
-import { useContext } from "react";
 import { Context } from "..";
 import { Navigate } from "react-router-dom";
 import { SHOP_ROUTE } from "../utils/consts";

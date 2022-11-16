@@ -1,0 +1,27 @@
+.typeBar:active {
+    background-color: grey;
+}
+
+.typeBar:target-within {
+    background-color: grey;
+
+
+}
+.typeBar:selected {
+    background-color: grey;
+}
+
+.typeBar:target {
+    background-color: grey;
+}
+.typeBar:disabled{
+    color: brown;
+    background-color: yellow;
+}
+
+:target {
+    color: red;
+}
+.types {
+    background-color: yellow;
+}

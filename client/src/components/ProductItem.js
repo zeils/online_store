@@ -1,6 +1,5 @@
 import React from "react"
 import { Card, Col} from "react-bootstrap"
-import Image from "react-bootstrap/Image"
 import { PRODUCT_ROUTE } from "../utils/consts"
 import { NavLink} from "react-router-dom"
 

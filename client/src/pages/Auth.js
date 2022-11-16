@@ -7,6 +7,7 @@ import { Context } from "..";
 import { login, registration } from "../http/userApi";
 import { LOGIN_ROUT, REGISTRATION_ROUT } from "../utils/consts";
 import { SHOP_ROUTE } from "../utils/consts";
+import { Error } from "../components/modals/Error";
 
 
 const Auth = observer(() => {
@@ -18,24 +19,33 @@ const Auth = observer(() => {
 
     const [email , setEmail] = useState()
     const [password , setPassword] = useState()
+    const [errorVisible, setErrorVisible] = useState(false)
+    
     const navigate = useNavigate()
 
     const click = async () => {
         try {
             let data;
+            if (!email || !password){
+                if (isLogin) {
+                    data = await login(email, password, user)
+        
+                } else {
+                    data = await registration(email, password, 'USER')
+                }
+                user.setUser(user)
+                user.setIsAuth(true)
+                
+                
+                navigate(SHOP_ROUTE)
+
+            }else {
+
+
+            }
        
 
-            if (isLogin) {
-                data = await login(email, password, user)
-    
-            } else {
-                data = await registration(email, password, 'USER')
-            }
-            user.setUser(user)
-            user.setIsAuth(true)
             
-            
-            navigate(SHOP_ROUTE)
 
             
 
@@ -100,6 +110,7 @@ const Auth = observer(() => {
                             
                         </Button>                    
                     </Row>
+                    <Error show={errorVisible} onHide={() => setErrorVisible(false)} message={'Не введен логин или пароль'}/>
 
 
 

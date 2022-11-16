@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState  } from "react";
 import { Form, Modal, Button, Dropdown, FormControl } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { Context } from "../..";
 import {Col, Row} from "react-bootstrap"
-import { useState } from "react";
-import { useEffect } from "react";
 import { createProduct, fetchTypes } from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
+
 
 
 
@@ -17,8 +16,6 @@ export const CreateProduct = observer(({show, onHide}) => {
     const [info, setInfo] = useState([])
     const [name, setName] = useState()
     const [price, setPrice] = useState()
-    const [file, setFile] = useState(null)
-    const [file2, setFile2] = useState(null)
     const [pictures, setPictures] = useState([])
 
     const addPicture = e => {
@@ -26,27 +23,11 @@ export const CreateProduct = observer(({show, onHide}) => {
 
     }
 
-
-
-    //useEffect (()=> {
-      //  fetchTypes().then(data => product.setTypes(data))
-        
-    //})
-    
-    //const selectFile = e => {
-    //    setFile(e.target.files[0])
-
-    //}
-
-
-
     const changeInfo = (key, value, number) => {
         setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
     }
 
     const addProduct = () => {
-
-        //const pics = [file,file2]
 
         const formData = new FormData()
         formData.append('name', name)
@@ -58,26 +39,14 @@ export const CreateProduct = observer(({show, onHide}) => {
             formData.append('img', img);
           }
 
-
-       
         createProduct(formData).then(data => onHide())
         fetchTypes().then(data => product.setTypes(data))
 
-
-
-
     }
-
-
-
 
     const addInfo = () =>{
         setInfo([...info, {title:'', description:'', number: Date.now()}])
     }
-
-
-
-
 
     const cleanForm = () => {
         setInfo([])
@@ -144,9 +113,6 @@ export const CreateProduct = observer(({show, onHide}) => {
                     
                     
                     )}
-
-                    
-
 
                     <hr></hr>
                     <Button variant="outline-dark" onClick={addInfo}>
