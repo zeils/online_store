@@ -4,7 +4,6 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { Context } from "../..";
-
 import { fetchTypes, deleteType } from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 
@@ -18,9 +17,7 @@ export const RemoveType = observer(({show, onHide}) => {
         deleteType(JSON.stringify(product.selectedType.id))
         onHide()
         fetchTypes().then(data => product.setTypes(data))
-  
-      
-  
+    
     }
     
     
@@ -35,8 +32,7 @@ export const RemoveType = observer(({show, onHide}) => {
                 <Form>
                     <Dropdown className="mt-3">
                         <DropdownToggle>
-                            {product.selectedType.name || "Выберите тип"}
-                            
+                            {product.selectedType.name || "Выберите тип"}                         
                         </DropdownToggle>
                         <DropdownMenu>
                             {product.types.map(type =>
@@ -49,8 +45,7 @@ export const RemoveType = observer(({show, onHide}) => {
                                 
                             )}
                         </DropdownMenu>
-                    </Dropdown>
-                    
+                    </Dropdown>                
                 </Form>
             </Modal.Body>
             <Modal.Footer>

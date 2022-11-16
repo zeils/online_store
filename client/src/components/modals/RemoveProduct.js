@@ -4,7 +4,6 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { Context } from "../..";
-
 import { fetchTypes, deleteProduct, fetchProducts } from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 
@@ -14,20 +13,13 @@ export const RemoveProduct = observer(({show, onHide}) => {
     const {product} = useContext(Context)
     const [productId, setProductId] = useState()
 
-
     const removeProduct = () => {
-        //console.log(product.products.id)
         deleteProduct(JSON.stringify(productId))
         onHide()
         fetchProducts()
-  
-      
-  
     }
     
     
-    
-
     return (
 
           <Modal show={show} onHide={onHide} animation={false}>

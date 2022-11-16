@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "..";
-import ProductItem from "./../components/ProductItem"
-import { Card, Row, Col, Button, ListGroup, Container } from "react-bootstrap";
-import Image from "react-bootstrap/Image"
+import { Card, Row, Col, Button, Container } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { CreateOrder } from "../components/modals/CreateOrder";
 
@@ -63,9 +60,7 @@ const Basket = observer(() => {
             <Row>
               <Button variant={"outline-dark"} className="mt-2" onClick={()=> setOrderVisible(true)}>Сформировать заказ</Button>
             </Row>
-            <Row>
-              С вами свяжется наш сотрудник
-            </Row>
+           
             
                 
         </Col>

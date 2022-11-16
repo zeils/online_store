@@ -1,6 +1,5 @@
 import React, {useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
-
 import { observer } from "mobx-react-lite";
 import emailjs from 'emailjs-com'
 import { TEMPLATE_ID, SERVICE_ID, PUBLIC_KEY} from "./../../utils/consts";
@@ -28,13 +27,8 @@ export const CreateOrder = observer(({show, onHide}) => {
         var order = [] 
 
 
-        cart.forEach(function(product, i, cart) {
-            //const item = {
-                //id: product.id,
-                //name: product.name,
-                //price: product.price
-                
-            //}
+        cart.forEach(function(product) {
+
             const item = product.name + "  " + product.price + "руб."
             order.push(item)
             
@@ -63,7 +57,7 @@ export const CreateOrder = observer(({show, onHide}) => {
 
     }
 
-    //m-auto 
+ 
 
     
 

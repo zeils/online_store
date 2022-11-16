@@ -1,16 +1,14 @@
-import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
+
+import React, { useState, useContext } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
-import { createType } from "../../http/productAPI";
-import { createProduct, fetchTypes } from "../../http/productAPI";
+import { createType, fetchTypes } from "../../http/productAPI";
 import { Context } from "../..";
-import { useContext } from "react";
+
 
 export const CreateType = (({show, onHide}) => {
   const {product} = useContext(Context)
   const [value, setValue] = useState()
   const addType = () => {
-      //console.log('новый тип ' + value)
       createType({name: value}).then(data => {
       setValue()
       onHide()
@@ -19,9 +17,6 @@ export const CreateType = (({show, onHide}) => {
     })
 
   }
-
-
-
 
     return (
 
