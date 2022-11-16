@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import { ListGroup } from "react-bootstrap";
-import "../styles/typeBarStyle.css"
+
 
 export const TypeBar = observer(()=>{
     const {product} = useContext(Context)
@@ -16,7 +16,8 @@ export const TypeBar = observer(()=>{
                 <ListGroup.Item
                     style={{
                         cursor: 'pointer', 
-                        backgroundColor: (product.selectedType == type.id) ? '#040404': '#7D8782'
+                        backgroundColor: (product.selectedType == type.id) ? '#353535': '#797979',
+                        color: '#FFFFFF'
                     }}
                     onClick={() => product.setSelectedType(type.id)}
                     //active={product.selectedType == type.id}
