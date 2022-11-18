@@ -26,7 +26,12 @@ const Auth = observer(() => {
     const click = async () => {
         try {
             let data;
+
             if (!email || !password){
+
+                
+
+            }else {
                 if (isLogin) {
                     data = await login(email, password, user)
         
@@ -38,8 +43,6 @@ const Auth = observer(() => {
                 
                 
                 navigate(SHOP_ROUTE)
-
-            }else {
 
 
             }
