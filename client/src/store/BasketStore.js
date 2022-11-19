@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx"
 export default class BasketStore {
     constructor() {
         this._list = []
+        localStorage.setItem("basket",  JSON.stringify(this._list))
         makeAutoObservable(this)
     }
 
@@ -15,13 +16,7 @@ export default class BasketStore {
             //console.log('добавлено ' + products)
 
         } 
-        
-
-
-        
-        
-
-        
+            
     }
 
     removeProduct(product) {
