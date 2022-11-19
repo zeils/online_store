@@ -8,6 +8,7 @@ import { login, registration } from "../http/userApi";
 import { LOGIN_ROUT, REGISTRATION_ROUT } from "../utils/consts";
 import { SHOP_ROUTE } from "../utils/consts";
 import {ErrorModal } from "../error/ErrorModal";
+import ErrorBoundary from "../error/ErrorBoundary";
 
 
 const Auth = observer(() => {
