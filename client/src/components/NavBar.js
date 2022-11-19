@@ -25,9 +25,9 @@ export const NavBar = observer (() => {
         <Navbar bg="dark" variant="dark">
         <Container>
             
-            <NavLink  style={{color: 'white', className:"d-flex flex-column mt-3", textDecoration: 'none' }} to= {SHOP_ROUTE}  className="ms-*"  onClick={() => product.setSelectedType({})} > 
-                <Row ><h1><u>BaGaЖ</u> </h1></Row>
-                <Row ><h10>Магазин чемоданов, сумок, кожгалантереи</h10></Row>
+            <NavLink  style={{color: 'white', className:"d-flex flex-column", textDecoration: 'none' }} to= {SHOP_ROUTE}  onClick={() => product.setSelectedType({})} > 
+                <Row className="ms-2"><h1><u>BaGaЖ</u> </h1></Row>
+                <Row className="ms-2"><h10>Магазин чемоданов, сумок, кожгалантереи</h10></Row>
             
             </NavLink>
 

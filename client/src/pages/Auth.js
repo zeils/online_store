@@ -7,7 +7,7 @@ import { Context } from "..";
 import { login, registration } from "../http/userApi";
 import { LOGIN_ROUT, REGISTRATION_ROUT } from "../utils/consts";
 import { SHOP_ROUTE } from "../utils/consts";
-import { Error } from "../components/modals/Error";
+import {ErrorModal } from "../error/ErrorModal";
 
 
 const Auth = observer(() => {
@@ -28,6 +28,7 @@ const Auth = observer(() => {
             let data;
 
             if (!email || !password){
+                setErrorVisible(true)
 
                 
 
@@ -44,40 +45,21 @@ const Auth = observer(() => {
                 
                 navigate(SHOP_ROUTE)
 
-
             }
-       
-
-            
-
-            
-
-
-
-
+    
         } catch (e) {
             alert(e.response.data.message)
 
 
         }
-            
-            
-            
-
-
-      
-        
-        
-
-
     }
 
     return (
         <Container
             className="d-flex justify-content-center align-items-center"
-            style={{height: window.innerHeight - 54}}
+            style={{height: window.innerHeight - 100}}
         >
-            <Card style={{width: 600}} className="p-5">
+            <Card style={{width: 600, backgroundColor:'#B5B5B5' }} className="p-5">
                 <h2 className="m-auto">{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
                 <Form>
                     <FormControl
@@ -93,27 +75,29 @@ const Auth = observer(() => {
                         onChange={e => setPassword(e.target.value)}
                         type="password"
                     />
-                    <Row className="d-flex justify-content-between mt-3 ">
+                    <Row className="d-flex justify-content-between mt-3 "  >
                         {isLogin ?
                             <div>
-                                <NavLink to={REGISTRATION_ROUT}>Регистрация</NavLink>
+                                <NavLink to={REGISTRATION_ROUT} style={{color: 'black', className:"d-flex flex-column", textDecoration: 'none' }}>Регистрация</NavLink>
                             </div>
                             :
                             <div>
-                                <NavLink to={LOGIN_ROUT}>Войдите</NavLink>
+                                <NavLink to={LOGIN_ROUT} style={{color: 'black', className:"d-flex flex-column", textDecoration: 'none' }}>Войдите</NavLink>
                             </div>
                         }
                         <Button 
                             className="mt-3"
-                            variant={"outline-success"}
+                            
                             onClick={click}
+                            variant="secondary"
+                            
                             
                         >
                             {isLogin ? 'Войти' : 'Регистрация'}
                             
                         </Button>                    
                     </Row>
-                    <Error show={errorVisible} onHide={() => setErrorVisible(false)} message={'Не введен логин или пароль'}/>
+                    <ErrorModal show={errorVisible} onHide={() => setErrorVisible(false)} message={'Не введен логин или пароль'}/>
 
 
 

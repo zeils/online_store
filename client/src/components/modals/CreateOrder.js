@@ -63,11 +63,22 @@ export const CreateOrder = observer(({show, onHide}) => {
 
     return (
 
-          <Modal show={show} onHide={onHide} animation={false}>
-            <Modal.Header closeButton>
+          <Modal 
+            show={show} 
+            onHide={onHide}
+            animation={false}
+            
+                
+            
+            >
+            <div  style={{ 
+                backgroundColor:'#B5B5B5', 
+                  
+            }} >
+            <Modal.Header style={{borderColor: '#B5B5B5', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
                 <Modal.Title>Сформировать заказ</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{borderColor: '#B5B5B5' }}>
                 <Form>
                     <Form.Control
                         value={name}
@@ -96,16 +107,19 @@ export const CreateOrder = observer(({show, onHide}) => {
                 </Alert>
                 
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{borderColor: '#B5B5B5' }}>
             
               <Button variant="secondary" onClick={onHide}>
                 Закрыть
               </Button>
-              <Button variant="primary" onClick={sendMail} disabled={ShowAlert}>
+              <Button style={{backgroundColor: "#3E3E3E", borderColor: '#000000' }}onClick={sendMail} disabled={ShowAlert}>
                 Отправить
               </Button>
               
             </Modal.Footer>
+
+            </div>
+            
           </Modal>
 
       );

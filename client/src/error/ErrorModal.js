@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 
 
 
-export const Error = observer(({show, onHide, message}) => {
+export const ErrorModal = observer(({show, onHide, message}) => {
 
     return (
 
