@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "nodemon -x 'node index.js || copy /b index.js +,,'"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

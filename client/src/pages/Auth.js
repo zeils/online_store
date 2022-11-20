@@ -30,9 +30,6 @@ const Auth = observer(() => {
 
             if (!email || !password){
                 setErrorVisible(true)
-
-                
-
             }else {
                 if (isLogin) {
                     data = await login(email, password, user)
@@ -41,11 +38,8 @@ const Auth = observer(() => {
                     data = await registration(email, password, 'USER')
                 }
                 user.setUser(user)
-                user.setIsAuth(true)
-                
-                
+                user.setIsAuth(true)        
                 navigate(SHOP_ROUTE)
-
             }
     
         } catch (e) {
@@ -99,7 +93,7 @@ const Auth = observer(() => {
                         </Button>                    
                     </Row>
                     <ErrorModal show={errorVisible} onHide={() => setErrorVisible(false)} message={'Не введен логин или пароль'}/>
-
+                    
 
 
                 </Form>
@@ -110,3 +104,5 @@ const Auth = observer(() => {
 });
 
 export default Auth;
+
+
