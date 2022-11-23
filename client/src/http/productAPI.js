@@ -58,6 +58,7 @@ export const fetchProducts = async (typeId, brandId, page, limit = 5) => {
 
 export const fetchOneProduct = async (id) => {
     const {data} = await $host.get('api/product/' + id)
+    console.log(data.product.price)
     return data
 
 }

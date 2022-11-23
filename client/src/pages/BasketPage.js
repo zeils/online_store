@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "..";
 import { Row, Col, Button, Container} from "react-bootstrap";
 import { observer } from "mobx-react-lite";
@@ -8,6 +8,18 @@ import ProductItem from "../components/ProductItem";
 const Basket = observer(() => {
     const {basket} = useContext(Context)
     const [orderVisible, setOrderVisible] = useState(false)
+    const [totalPrice, setTotalPrice] = useState(0)
+
+    useEffect (()=> {
+        var total = 0
+        basket.products.map((product) =>
+          total = total + product.price,
+          console.log('total ' + total)
+
+        )
+        setTotalPrice(total)
+
+    })
 
 
   
@@ -15,8 +27,9 @@ const Basket = observer(() => {
         basket.removeProduct(product)
         window.location.reload()
 
-    } 
-
+    }
+    
+   
     return (
         <Container>
           
@@ -25,17 +38,21 @@ const Basket = observer(() => {
         <Col className="d-flex flex-column mt-3">
             <h2 className="d-flex flex-column mt-2 ms-3">{basket.products.length === 0 ? 'Ваша корзина пуста!' : 'Корзина'}</h2>  
                 
-                {basket.products.map((product) =>
-                    <ProductItem product={product}> <Button onClick={()=> removeProduct(product)}>Удалить</Button></ProductItem>
+            {basket.products.map((product) =>
+                <ProductItem product={product} key={product.id}> </ProductItem>
  
-                )}
+            )}
 
 
                 
         </Col>
         <Col className="d-flex flex-column mt-3" md={3}>
         <h2 className="d-flex flex-column mt-3">
-            <Button variant={"outline-dark"}  onClick={()=> setOrderVisible(true)}>Сформировать заказ</Button>
+            <Container>
+                <Row> Общая стоимость корзины:</Row>
+                <Row>{totalPrice} руб.</Row>
+            </Container>
+            <Button variant={"outline-dark"}  onClick={()=> setOrderVisible(true)} className="mt-3">Сформировать заказ</Button>
 
         </h2>
            

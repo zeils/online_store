@@ -165,13 +165,13 @@ class ProductController {
 
         const product = {
             id: dbproduct.id,
-            name: dbproduct.id,
-            price: dbproduct.id,
-            rating: dbproduct.id,
-            createdAt: dbproduct.id,
-            updatedAt: dbproduct.id,
-            typeId: dbproduct.id,
-            brandId: dbproduct.id,
+            name: dbproduct.name,
+            price: dbproduct.price,
+            rating: dbproduct.rating,
+            createdAt: dbproduct.createdAt,
+            updatedAt: dbproduct.updatedAt,
+            typeId: dbproduct.typeId,
+            brandId: dbproduct.brandId,
             img: pics[0].dataValues.img,
             info: (dbproduct.info)
             
