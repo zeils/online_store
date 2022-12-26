@@ -17,8 +17,13 @@ export const NavBar = observer (() => {
     
 
     const logOut = () => {
+        console.log('Выход')
         user.setUser({})
         user.setIsAuth(false)
+        console.log('авторизирован' + user.isAuth)
+        console.log('Юзер' + user.user)
+        console.log('Удаленн токен')
+        localStorage.removeItem('token')
     }
 
     return (

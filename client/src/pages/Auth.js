@@ -4,11 +4,13 @@ import { Button, Container, Form, FormControl, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card"
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "..";
-import { login, registration } from "../http/userApi";
+import { login, oAuth, registration } from "../http/userApi";
 import { LOGIN_ROUT, REGISTRATION_ROUT } from "../utils/consts";
 import { SHOP_ROUTE } from "../utils/consts";
 import {ErrorModal } from "../error/ErrorModal";
 import ErrorBoundary from "../error/ErrorBoundary";
+import { useEffect } from "react";
+import jwt_decode from "jwt-decode"
 
 
 const Auth = observer(() => {
@@ -23,6 +25,34 @@ const Auth = observer(() => {
     const [errorVisible, setErrorVisible] = useState(false)
     
     const navigate = useNavigate()
+
+    const handleCallbackResponse = async (response) => {
+        console.log("Encoded JWT" + response.credential)
+        var userObject = jwt_decode(response.credential)
+        console.log(userObject)
+        console.log('info')
+        console.log(userObject.email)
+        console.log(userObject.sub)
+        let data = await oAuth(userObject.email, userObject.sub, user, 'USER')
+        user.setUser(user)
+        user.setIsAuth(true)
+        navigate(SHOP_ROUTE)
+    
+    }
+
+    useEffect( ()=> {
+        /* global google */
+        google.accounts.id.initialize({
+          client_id: "14931489561-1qihpgqdu487oakbijiuu1rkch3hskdg.apps.googleusercontent.com",
+          callback: handleCallbackResponse
+    
+        })
+        google.accounts.id.renderButton(
+          document.getElementById("signInDiv"),
+          {theme: "outline", size: "large"}
+    
+        )  
+      }, [])
 
     const click = async () => {
         try {
@@ -71,6 +101,7 @@ const Auth = observer(() => {
                         type="password"
                     />
                     <Row className="d-flex justify-content-between mt-3 "  >
+                        
                         {isLogin ?
                             <div>
                                 <NavLink to={REGISTRATION_ROUT} style={{color: 'black', className:"d-flex flex-column", textDecoration: 'none' }}>Регистрация</NavLink>
@@ -80,6 +111,7 @@ const Auth = observer(() => {
                                 <NavLink to={LOGIN_ROUT} style={{color: 'black', className:"d-flex flex-column", textDecoration: 'none' }}>Войдите</NavLink>
                             </div>
                         }
+                        
                         <Button 
                             className="mt-3"
                             
@@ -92,6 +124,7 @@ const Auth = observer(() => {
                             
                         </Button>                    
                     </Row>
+                    <div id="signInDiv" className="mt-3"></div>
                     <ErrorModal show={errorVisible} onHide={() => setErrorVisible(false)} message={'Не введен логин или пароль'}/>
                     
 

@@ -20,6 +20,14 @@ export const login = async (email, password, user) => {
 
 }
 
+export const oAuth = async (email, password, user, role) => {
+    const {data} = await $host.post('api/user/oAuth', {email, password, role})
+    user.setRole(role)
+    localStorage.setItem('token', data.token)
+    return jwt_decode(data.token)
+
+}
+
 
 
 export const check = async (user) => {
